@@ -47,8 +47,6 @@
     .cart-badge { background: #ff3e6c; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
 
     .main-content { max-width: 1240px; margin: 0 auto; padding: 20px 15px 40px; }
-    
-    /* Sections View Controller */
     .view-section { display: none; }
     .view-section.active { display: block; }
 
@@ -67,25 +65,37 @@
       background: white; position: relative; display: flex; flex-direction: column;
     }
     .badge-discount { position: absolute; top: 12px; left: 12px; background: #388e3c; color: white; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 4px; }
-    .product-img-box { height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+    .product-img-box { height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; cursor: pointer; }
     .product-img-box img { max-height: 100%; max-width: 100%; object-fit: contain; }
-    .product-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .product-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; cursor: pointer; }
+    .product-title:hover { color: #1A73E8; }
     .price-container { display: flex; align-items: baseline; gap: 8px; margin-bottom: 15px; }
     .curr-price { font-size: 17px; font-weight: 700; color: #111; }
     .old-price { font-size: 13px; color: #878787; text-decoration: line-through; }
     
     .btn-action {
       margin-top: auto; width: 100%; background: #ff9f00; color: white;
-      border: none; padding: 10px; border-radius: 6px; font-weight: 700;
-      cursor: pointer; text-align: center;
+      border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer;
     }
     .btn-action:hover { background: #e68f00; }
 
-    /* Cart Page Specific Styling */
+    /* Cart Styles */
     .cart-container { display: flex; flex-direction: column; gap: 15px; }
     .cart-item-row { display: flex; align-items: center; justify-content: space-between; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
     .cart-item-info { display: flex; align-items: center; gap: 15px; }
     .cart-item-info img { width: 60px; height: 60px; object-fit: contain; }
+
+    /* Modal / Details Popup */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 3000;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: white; border-radius: 16px; padding: 30px; width: 90%; max-width: 500px; position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .modal-close { position: absolute; top: 15px; right: 20px; font-size: 22px; cursor: pointer; color: #666; }
 
     footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 25px; font-size: 13px; margin-top: 40px; }
   </style>
@@ -115,12 +125,12 @@
 
   <main class="main-content notranslate">
     
-    <!-- HOME PAGE VIEW -->
+    <!-- HOME VIEW -->
     <div id="homeView" class="view-section active">
       <div class="hero-banner">
         <div>
           <h2>Grand Festival Sale!</h2>
-          <p>Explore top products with direct WhatsApp checkout.</p>
+          <p>Get up to 60% OFF on top brands with WhatsApp checkout.</p>
         </div>
         <i class="fa-solid fa-bag-shopping" style="font-size: 60px; opacity: 0.8;"></i>
       </div>
@@ -131,13 +141,11 @@
       </div>
     </div>
 
-    <!-- CART PAGE VIEW -->
+    <!-- CART VIEW -->
     <div id="cartView" class="view-section">
       <div class="section-card">
         <h2 class="section-title"><i class="fa-solid fa-cart-shopping"></i> My Shopping Cart</h2>
-        <div id="cartItemsList" class="cart-container">
-          <!-- Cart items will load here -->
-        </div>
+        <div id="cartItemsList" class="cart-container"></div>
         <div id="cartSummary" style="margin-top: 25px; text-align: right; display: none;">
           <h3 style="margin-bottom: 15px;">Total Amount: <span id="cartTotalPrice" style="color: #1A73E8;">₹0</span></h3>
           <button onclick="checkoutWhatsApp()" style="background: #25D366; color: white; border: none; padding: 12px 30px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer;">
@@ -149,11 +157,146 @@
 
   </main>
 
+  <!-- Product Detail Modal -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal-content">
+      <i class="fa-solid fa-xmark modal-close" onclick="closeModal()"></i>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2026 ApnaStore. All rights reserved.</p>
   </footer>
 
   <script>
     const products = [
-      { id: 1, name: "Samsung Galaxy S23 5G (128GB)", price: 54999, original: 74999, discount: "26% OFF", image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400" },
-      { id: 2, name: "iPhone 14 (128GB - Blue)", price: 65999, original: 79900, discount: "17% OFF", image: "
+      { id: 1, name: "Samsung Galaxy S23 5G (128GB)", price: 54999, original: 74999, discount: "26% OFF", desc: "Dynamic AMOLED 2X Display, Snapdragon 8 Gen 2 processor, high-res camera setup.", image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400" },
+      { id: 2, name: "iPhone 14 (128GB - Blue)", price: 65999, original: 79900, discount: "17% OFF", desc: "Super Retina XDR display, Cinematic mode in 4K Dolby Vision, All-day battery life.", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400" },
+      { id: 3, name: "Wireless Bluetooth Headphones", price: 1499, original: 2999, discount: "50% OFF", desc: "Deep bass, 40-hour playback time, comfortable ergonomic over-ear design.", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
+      { id: 4, name: "Smart Fitness Watch", price: 2499, original: 4999, discount: "50% OFF", desc: "Heart rate tracking, SpO2 monitor, multiple sports modes, sleek metallic finish.", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" }
+    ];
+
+    let cart = JSON.parse(localStorage.getItem('apnaStoreCart')) || [];
+    updateCartCount();
+
+    function switchView(viewName) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      if (viewName === 'home') {
+        document.getElementById('homeView').classList.add('active');
+      } else if (viewName === 'cart') {
+        document.getElementById('cartView').classList.add('active');
+        renderCartPage();
+      }
+      window.scrollTo(0, 0);
+    }
+
+    function renderProducts(items) {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = items.map(p => `
+        <div class="product-card">
+          <span class="badge-discount">${p.discount}</span>
+          <div class="product-img-box" onclick="openProductModal(${p.id})">
+            <img src="${p.image}" alt="${p.name}">
+          </div>
+          <div class="product-title" onclick="openProductModal(${p.id})">${p.name}</div>
+          <div class="price-container">
+            <span class="curr-price">₹${p.price.toLocaleString()}</span>
+            <span class="old-price">₹${p.original.toLocaleString()}</span>
+          </div>
+          <button class="btn-action" onclick="addToCart(${p.id})">Add to Cart</button>
+        </div>
+      `).join('');
+    }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      cart.push(product);
+      localStorage.setItem('apnaStoreCart', JSON.stringify(cart));
+      updateCartCount();
+      alert(`${product.name} added to cart!`);
+    }
+
+    function updateCartCount() {
+      document.getElementById('cartCount').innerText = cart.length;
+    }
+
+    function renderCartPage() {
+      const container = document.getElementById('cartItemsList');
+      const summary = document.getElementById('cartSummary');
+
+      if (cart.length === 0) {
+        container.innerHTML = `<p style="text-align: center; color: #878787; padding: 30px;">Your cart is empty! <a href="#" onclick="switchView('home')" style="color:#1A73E8;">Go shopping</a></p>`;
+        summary.style.display = 'none';
+        return;
+      }
+
+      summary.style.display = 'block';
+      let total = 0;
+      container.innerHTML = cart.map((item, index) => {
+        total += item.price;
+        return `
+          <div class="cart-item-row">
+            <div class="cart-item-info">
+              <img src="${item.image}" alt="">
+              <div>
+                <div style="font-weight: 600; font-size: 15px;">${item.name}</div>
+                <div style="color: #1A73E8; font-weight: bold;">₹${item.price.toLocaleString()}</div>
+              </div>
+            </div>
+            <button onclick="removeFromCart(${index})" style="background: #ff3e6c; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('cartTotalPrice').innerText = `₹${total.toLocaleString()}`;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('apnaStoreCart', JSON.stringify(cart));
+      updateCartCount();
+      renderCartPage();
+    }
+
+    function openProductModal(id) {
+      const p = products.find(item => item.id === id);
+      document.getElementById('modalBody').innerHTML = `
+        <div style="text-align: center; margin-bottom: 15px;">
+          <img src="${p.image}" style="max-height: 200px; object-fit: contain;">
+        </div>
+        <h2 style="font-size: 18px; margin-bottom: 8px;">${p.name}</h2>
+        <div style="font-size: 20px; font-weight: bold; color: #388e3c; margin-bottom: 10px;">₹${p.price.toLocaleString()} <span style="font-size: 13px; color: #878787; text-decoration: line-through;">₹${p.original.toLocaleString()}</span></div>
+        <p style="font-size: 14px; color: #555; margin-bottom: 20px;">${p.desc}</p>
+        <button class="btn-action" onclick="addToCart(${p.id}); closeModal();">Add to Cart</button>
+      `;
+      document.getElementById('productModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('productModal').classList.remove('active');
+    }
+
+    function checkoutWhatsApp() {
+      const whatsappNumber = "919876543210";
+      let message = "Hello ApnaStore! I want to order:\n\n";
+      let total = 0;
+      
+      cart.forEach((item, idx) => {
+        message += `${idx + 1}. ${item.name} - ₹${item.price.toLocaleString()}\n`;
+        total += item.price;
+      });
+
+      message += `\n*Total Amount: ₹${total.toLocaleString()}*\n\nPlease confirm my order.`;
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    function filterProducts() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      renderProducts(products.filter(p => p.name.toLowerCase().includes(query)));
+    }
+
+    renderProducts(products);
+  </script>
+</body>
+</html>
