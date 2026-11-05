@@ -6,369 +6,77 @@
   <meta name="google" content="notranslate" />
   <title>ApnaStore - Shop Smart, Save More</title>
   
-  <!-- FontAwesome Icons & Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { background-color: #f1f3f6; color: #212121; }
 
-    body {
-      background-color: #f1f3f6;
-      color: #212121;
-    }
-
-    /* Header */
     header {
       background: linear-gradient(135deg, #1A73E8 0%, #0D47A1 100%);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      position: sticky; top: 0; z-index: 1000;
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
-
     .header-container {
-      max-width: 1240px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      gap: 20px;
+      max-width: 1240px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; gap: 20px;
     }
-
     .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: white;
-      font-weight: 700;
-      font-size: 22px;
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: white; font-weight: 700; font-size: 22px;
     }
+    .brand-logo img { height: 38px; border-radius: 6px; background: white; padding: 2px; }
+    .brand-logo span { color: #FFE500; }
 
-    .brand-logo img {
-      height: 38px;
-      border-radius: 6px;
-      background: white;
-      padding: 2px;
-    }
-
-    .brand-logo span {
-      color: #FFE500;
-    }
-
-    .search-box {
-      flex-grow: 1;
-      max-width: 550px;
-      position: relative;
-    }
-
+    .search-box { flex-grow: 1; max-width: 550px; position: relative; }
     .search-box input {
-      width: 100%;
-      padding: 11px 45px 11px 18px;
-      border: none;
-      border-radius: 25px;
-      outline: none;
-      font-size: 14px;
+      width: 100%; padding: 11px 45px 11px 18px; border: none;
+      border-radius: 25px; outline: none; font-size: 14px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
-
-    .search-box i {
-      position: absolute;
-      right: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #1A73E8;
-    }
+    .search-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #1A73E8; }
 
     .cart-btn {
-      background: #FFE500;
-      color: #0D47A1;
-      border: none;
-      padding: 10px 22px;
-      border-radius: 25px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 15px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      background: #FFE500; color: #0D47A1; border: none;
+      padding: 10px 22px; border-radius: 25px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 15px;
     }
+    .cart-badge { background: #ff3e6c; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
 
-    .cart-badge {
-      background: #ff3e6c;
-      color: white;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 12px;
-    }
+    .category-bar { background: white; padding: 15px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+    .category-container { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-around; overflow-x: auto; }
+    .cat-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+    .cat-icon { width: 50px; height: 50px; background: #eef5ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1A73E8; font-size: 20px; }
+    .cat-item span { font-size: 13px; font-weight: 600; color: #444; }
 
-    /* Categories */
-    .category-bar {
-      background: white;
-      padding: 15px 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
-    }
-
-    .category-container {
-      max-width: 1240px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-around;
-      overflow-x: auto;
-    }
-
-    .cat-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .cat-item:hover { transform: translateY(-4px); }
-
-    .cat-icon {
-      width: 50px;
-      height: 50px;
-      background: #eef5ff;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #1A73E8;
-      font-size: 20px;
-    }
-
-    .cat-item span {
-      font-size: 13px;
-      font-weight: 600;
-      color: #444;
-    }
-
-    /* Main Container */
-    .main-content {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 15px 40px;
-    }
-
+    .main-content { max-width: 1240px; margin: 0 auto; padding: 0 15px 40px; }
     .hero-banner {
-      background: linear-gradient(135deg, #FF512F, #DD2476);
-      color: white;
-      border-radius: 16px;
-      padding: 35px 30px;
-      margin-bottom: 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      background: linear-gradient(135deg, #FF512F, #DD2476); color: white;
+      border-radius: 16px; padding: 35px 30px; margin-bottom: 25px;
+      display: flex; justify-content: space-between; align-items: center;
     }
 
-    .hero-banner h2 { font-size: 28px; margin-bottom: 6px; }
+    .section-card { background: white; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .section-title { font-size: 22px; font-weight: 700; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 25px; }
 
-    .section-card {
-      background: white;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    }
-
-    .section-header {
-      border-bottom: 2px solid #f0f0f0;
-      padding-bottom: 15px;
-      margin-bottom: 25px;
-    }
-
-    .section-title { font-size: 22px; font-weight: 700; }
-
-    /* Products Grid */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 22px;
-    }
-
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px; }
     .product-card {
-      border: 1px solid #eaeaea;
-      border-radius: 12px;
-      padding: 15px;
-      transition: all 0.3s ease;
-      background: white;
-      position: relative;
-      display: flex;
-      flex-direction: column;
+      border: 1px solid #eaeaea; border-radius: 12px; padding: 15px;
+      background: white; position: relative; display: flex; flex-direction: column;
     }
-
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-
-    .badge-discount {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: #388e3c;
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 7px;
-      border-radius: 4px;
-    }
-
-    .product-img-box {
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 12px;
-    }
-
-    .product-img-box img {
-      max-height: 100%;
-      max-width: 100%;
-      object-fit: contain;
-    }
-
-    .product-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .price-container {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 15px;
-    }
-
+    .badge-discount { position: absolute; top: 12px; left: 12px; background: #388e3c; color: white; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 4px; }
+    .product-img-box { height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+    .product-img-box img { max-height: 100%; max-width: 100%; object-fit: contain; }
+    .product-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .price-container { display: flex; align-items: baseline; gap: 8px; margin-bottom: 15px; }
     .curr-price { font-size: 17px; font-weight: 700; color: #111; }
     .old-price { font-size: 13px; color: #878787; text-decoration: line-through; }
-
-    .btn-add {
-      margin-top: auto;
-      width: 100%;
-      background: #ff9f00;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 6px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
+    .btn-add { margin-top: auto; width: 100%; background: #ff9f00; color: white; border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; }
     .btn-add:hover { background: #e68f00; }
 
-    /* Cart Drawer */
-    .cart-drawer {
-      position: fixed;
-      top: 0;
-      right: -400px;
-      width: 360px;
-      height: 100%;
-      background: white;
-      box-shadow: -5px 0 20px rgba(0,0,0,0.15);
-      z-index: 2000;
-      transition: right 0.3s ease;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .cart-drawer.open { right: 0; }
-
-    .cart-header {
-      background: #1A73E8;
-      color: white;
-      padding: 18px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .cart-items { flex-grow: 1; overflow-y: auto; padding: 20px; }
-
-    .cart-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 12px;
-      margin-bottom: 12px;
-    }
-
-    .cart-item img { width: 45px; height: 45px; object-fit: contain; }
-
-    .cart-footer { padding: 20px; border-top: 1px solid #eee; background: #fafafa; }
-
-    .btn-checkout {
-      width: 100%;
-      background: #fb641b;
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    /* Modal Popup */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 3000;
-    }
-
-    .modal-overlay.active { display: flex; }
-
-    .checkout-modal {
-      background: white;
-      border-radius: 12px;
-      padding: 25px;
-      width: 90%;
-      max-width: 450px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-
-    .checkout-modal h3 { margin-bottom: 15px; color: #1A73E8; }
-    
-    .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
-    .form-group input, .form-group textarea {
-      width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 6px; outline: none; font-size: 13px;
-    }
-
-    /* Toast Notification */
-    .toast {
-      position: fixed;
-      bottom: 25px; left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: #323232; color: white;
-      padding: 10px 22px; border-radius: 20px;
-      font-size: 13px; transition: transform 0.3s ease;
-      z-index: 4000;
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); }
-
-    footer {
-      background: #0f172a; color: #94a3b8;
-      text-align: center; padding: 25px; font-size: 13px; margin-top: 40px;
-    }
+    footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 25px; font-size: 13px; margin-top: 40px; }
   </style>
 </head>
 <body>
@@ -382,26 +90,26 @@
       </a>
 
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+        <input type="text" placeholder="Search products...">
         <i class="fa-solid fa-magnifying-glass"></i>
       </div>
 
-      <button class="cart-btn" onclick="toggleCart()">
+      <button class="cart-btn" onclick="alert('Cart opened!')">
         <i class="fa-solid fa-cart-shopping"></i>
         Cart
-        <span class="cart-badge" id="cartCount">0</span>
+        <span class="cart-badge">0</span>
       </button>
     </div>
   </header>
 
-  <!-- Categories Bar -->
+  <!-- Categories -->
   <nav class="category-bar notranslate">
     <div class="category-container">
-      <div class="cat-item" onclick="filterCategory('all')"><div class="cat-icon"><i class="fa-solid fa-border-all"></i></div><span>All</span></div>
-      <div class="cat-item" onclick="filterCategory('mobile')"><div class="cat-icon"><i class="fa-solid fa-mobile-screen"></i></div><span>Mobiles</span></div>
-      <div class="cat-item" onclick="filterCategory('electronics')"><div class="cat-icon"><i class="fa-solid fa-laptop"></i></div><span>Electronics</span></div>
-      <div class="cat-item" onclick="filterCategory('fashion')"><div class="cat-icon"><i class="fa-solid fa-shirt"></i></div><span>Fashion</span></div>
-      <div class="cat-item" onclick="filterCategory('audio')"><div class="cat-icon"><i class="fa-solid fa-headphones"></i></div><span>Audio</span></div>
+      <div class="cat-item"><div class="cat-icon"><i class="fa-solid fa-border-all"></i></div><span>All</span></div>
+      <div class="cat-item"><div class="cat-icon"><i class="fa-solid fa-mobile-screen"></i></div><span>Mobiles</span></div>
+      <div class="cat-item"><div class="cat-icon"><i class="fa-solid fa-laptop"></i></div><span>Electronics</span></div>
+      <div class="cat-item"><div class="cat-icon"><i class="fa-solid fa-shirt"></i></div><span>Fashion</span></div>
+      <div class="cat-item"><div class="cat-icon"><i class="fa-solid fa-headphones"></i></div><span>Audio</span></div>
     </div>
   </nav>
 
@@ -416,75 +124,73 @@
     </div>
 
     <div class="section-card">
-      <div class="section-header">
-        <h2 class="section-title">Deals of the Day</h2>
+      <h2 class="section-title">Deals of the Day</h2>
+      
+      <div class="products-grid">
+        
+        <!-- Product 1 -->
+        <div class="product-card">
+          <span class="badge-discount">26% OFF</span>
+          <div class="product-img-box">
+            <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400" alt="Samsung">
+          </div>
+          <div class="product-title">Samsung Galaxy S23 5G (128GB)</div>
+          <div class="price-container">
+            <span class="curr-price">₹54,999</span>
+            <span class="old-price">₹74,999</span>
+          </div>
+          <button class="btn-add" onclick="alert('Samsung S23 added to cart!')">Add to Cart</button>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <span class="badge-discount">17% OFF</span>
+          <div class="product-img-box">
+            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400" alt="iPhone">
+          </div>
+          <div class="product-title">iPhone 14 (128GB - Blue)</div>
+          <div class="price-container">
+            <span class="curr-price">₹65,999</span>
+            <span class="old-price">₹79,900</span>
+          </div>
+          <button class="btn-add" onclick="alert('iPhone 14 added to cart!')">Add to Cart</button>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <span class="badge-discount">50% OFF</span>
+          <div class="product-img-box">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" alt="Headphones">
+          </div>
+          <div class="product-title">Wireless Bluetooth Headphones</div>
+          <div class="price-container">
+            <span class="curr-price">₹1,499</span>
+            <span class="old-price">₹2,999</span>
+          </div>
+          <button class="btn-add" onclick="alert('Headphones added to cart!')">Add to Cart</button>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+          <span class="badge-discount">50% OFF</span>
+          <div class="product-img-box">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" alt="Watch">
+          </div>
+          <div class="product-title">Smart Fitness Watch</div>
+          <div class="price-container">
+            <span class="curr-price">₹2,499</span>
+            <span class="old-price">₹4,999</span>
+          </div>
+          <button class="btn-add" onclick="alert('Watch added to cart!')">Add to Cart</button>
+        </div>
+
       </div>
-      <div class="products-grid" id="productsGrid"></div>
     </div>
   </main>
 
-  <!-- Cart Drawer -->
-  <div class="cart-drawer" id="cartDrawer">
-    <div class="cart-header">
-      <h3>My Cart</h3>
-      <i class="fa-solid fa-xmark" style="cursor: pointer; font-size: 20px;" onclick="toggleCart()"></i>
-    </div>
-    <div class="cart-items" id="cartItems">
-      <p style="text-align: center; color: #878787; margin-top: 40px;">Cart is empty!</p>
-    </div>
-    <div class="cart-footer">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 700;">
-        <span>Total:</span>
-        <span id="cartTotal" style="color: #1A73E8;">₹0</span>
-      </div>
-      <button class="btn-checkout" onclick="openCheckout()">PROCEED TO CHECKOUT</button>
-    </div>
-  </div>
-
-  <!-- Checkout Form Modal -->
-  <div class="modal-overlay" id="checkoutModal">
-    <div class="checkout-modal">
-      <h3>Shipping & Order Details</h3>
-      <form onsubmit="placeOrder(event)">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" required placeholder="Enter your name">
-        </div>
-        <div class="form-group">
-          <label>Mobile Number</label>
-          <input type="tel" required placeholder="Enter mobile number">
-        </div>
-        <div class="form-group">
-          <label>Delivery Address</label>
-          <textarea rows="2" required placeholder="Enter full address"></textarea>
-        </div>
-        <div class="form-group">
-          <label>Payment Method</label>
-          <select style="width: 100%; padding: 8px; border-radius: 6px;">
-            <option>Cash On Delivery (COD)</option>
-            <option>UPI / GPay / PhonePe</option>
-          </select>
-        </div>
-        <div style="display: flex; gap: 10px; margin-top: 15px;">
-          <button type="button" onclick="closeCheckout()" style="flex:1; padding: 10px; border:1px solid #ccc; background: white; border-radius: 6px; cursor:pointer;">Cancel</button>
-          <button type="submit" style="flex:1; padding: 10px; border:none; background: #388e3c; color:white; border-radius: 6px; font-weight:bold; cursor:pointer;">Place Order</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Toast -->
-  <div class="toast" id="toast">Added to cart!</div>
-
-  <!-- Footer -->
-  <footer class="notranslate">
+  <footer>
     <p>&copy; 2026 ApnaStore. All rights reserved.</p>
   </footer>
 
-  <script>
-    const products = [
-      { id: 1, category: "mobile", name: "Samsung Galaxy S23 5G (128GB)", price: 54999, original: 74999, discount: "26% OFF", image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400" },
-      { id: 2, category: "mobile", name: "iPhone 14 (128GB - Blue)", price: 65999, original: 79900, discount: "17% OFF", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400" },
-      { id: 3, category: "audio", name: "Wireless Bluetooth Headphones", price: 1499, original: 2999, discount: "50% OFF", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
-      { id: 4, category: "electronics", name: "Smart Fitness Watch", price: 2499, original: 4999, discount: "50% OFF", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" },
-      { id: 5, category: "fashion", name: "Nike Sports Shoes", price: 3199, original: 5999, discount: "46% OFF", image: "
+</body>
+</html>
