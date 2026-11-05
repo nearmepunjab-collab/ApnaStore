@@ -23,7 +23,6 @@
       color: #212121;
     }
 
-    /* Modern Blue Header */
     header {
       background: linear-gradient(135deg, #1A73E8 0%, #0D47A1 100%);
       position: sticky;
@@ -63,7 +62,6 @@
       color: #FFE500;
     }
 
-    /* Search Bar */
     .search-box {
       flex-grow: 1;
       max-width: 550px;
@@ -88,7 +86,6 @@
       color: #1A73E8;
     }
 
-    /* Cart Button */
     .cart-btn {
       background: #FFE500;
       color: #0D47A1;
@@ -112,7 +109,6 @@
       font-size: 12px;
     }
 
-    /* Categories Bar */
     .category-bar {
       background: white;
       padding: 15px 20px;
@@ -159,7 +155,6 @@
       color: #444;
     }
 
-    /* Main Container */
     .main-content {
       max-width: 1240px;
       margin: 0 auto;
@@ -181,7 +176,6 @@
     .hero-banner h2 { font-size: 28px; margin-bottom: 6px; }
     .hero-banner p { font-size: 15px; opacity: 0.9; }
 
-    /* Products Section */
     .section-card {
       background: white;
       border-radius: 16px;
@@ -303,7 +297,7 @@
         <i class="fa-solid fa-magnifying-glass"></i>
       </div>
 
-      <button class="cart-btn" onclick="alert('Item in cart: ' + cartCount)">
+      <button class="cart-btn" onclick="alert('Items in cart: ' + cartCount)">
         <i class="fa-solid fa-cart-shopping"></i>
         Cart
         <span class="cart-badge" id="cartCount">0</span>
@@ -311,14 +305,14 @@
     </div>
   </header>
 
-  <!-- Categories -->
+  <!-- Categories Bar -->
   <nav class="category-bar notranslate">
     <div class="category-container">
-      <div class="cat-item"><div class="cat-icon"><i class="fa-solid fa-mobile-screen"></i></div><span>Mobiles</span></div>
-      <div class="cat-item"><div class="cat-icon"><i class="fa-solid fa-laptop"></i></div><span>Electronics</span></div>
-      <div class="cat-item"><div class="cat-icon"><i class="fa-solid fa-shirt"></i></div><span>Fashion</span></div>
-      <div class="cat-item"><div class="cat-icon"><i class="fa-solid fa-couch"></i></div><span>Home</span></div>
-      <div class="cat-item"><div class="cat-icon"><i class="fa-solid fa-headphones"></i></div><span>Audio</span></div>
+      <div class="cat-item" onclick="filterCategory('all')"><div class="cat-icon"><i class="fa-solid fa-border-all"></i></div><span>All</span></div>
+      <div class="cat-item" onclick="filterCategory('mobile')"><div class="cat-icon"><i class="fa-solid fa-mobile-screen"></i></div><span>Mobiles</span></div>
+      <div class="cat-item" onclick="filterCategory('electronics')"><div class="cat-icon"><i class="fa-solid fa-laptop"></i></div><span>Electronics</span></div>
+      <div class="cat-item" onclick="filterCategory('fashion')"><div class="cat-icon"><i class="fa-solid fa-shirt"></i></div><span>Fashion</span></div>
+      <div class="cat-item" onclick="filterCategory('audio')"><div class="cat-icon"><i class="fa-solid fa-headphones"></i></div><span>Audio</span></div>
     </div>
   </nav>
 
@@ -328,7 +322,7 @@
     <div class="hero-banner">
       <div>
         <h2>Grand Festival Sale!</h2>
-        <p>Get up to 60% OFF on premium products.</p>
+        <p>Get up to 60% OFF on Mobiles & Electronics.</p>
       </div>
       <i class="fa-solid fa-bag-shopping" style="font-size: 60px; opacity: 0.8;"></i>
     </div>
@@ -349,10 +343,12 @@
 
   <script>
     const products = [
-      { id: 1, name: "Wireless Bluetooth Headphones", price: 1499, original: 2999, discount: "50% OFF", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
-      { id: 2, name: "Smart Fitness Watch", price: 2499, original: 4999, discount: "50% OFF", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" },
-      { id: 3, name: "Nike Sports Shoes", price: 3199, original: 5999, discount: "46% OFF", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" },
-      { id: 4, name: "Laptop Backpack", price: 899, original: 1999, discount: "55% OFF", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400" }
+      { id: 1, category: "mobile", name: "Samsung Galaxy S23 5G (128GB)", price: 54999, original: 74999, discount: "26% OFF", image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400" },
+      { id: 2, category: "mobile", name: "iPhone 14 (128GB - Blue)", price: 65999, original: 79900, discount: "17% OFF", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400" },
+      { id: 3, category: "audio", name: "Wireless Bluetooth Headphones", price: 1499, original: 2999, discount: "50% OFF", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
+      { id: 4, category: "electronics", name: "Smart Fitness Watch", price: 2499, original: 4999, discount: "50% OFF", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" },
+      { id: 5, category: "fashion", name: "Nike Sports Shoes", price: 3199, original: 5999, discount: "46% OFF", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" },
+      { id: 6, category: "fashion", name: "Laptop Backpack", price: 899, original: 1999, discount: "55% OFF", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400" }
     ];
 
     let cartCount = 0;
@@ -360,6 +356,11 @@
     function renderProducts(items) {
       const grid = document.getElementById('productsGrid');
       grid.innerHTML = '';
+
+      if (items.length === 0) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 20px;">No products found!</p>`;
+        return;
+      }
 
       items.forEach(p => {
         grid.innerHTML += `
@@ -370,8 +371,8 @@
             </div>
             <div class="product-title">${p.name}</div>
             <div class="price-container">
-              <span class="curr-price">₹${p.price}</span>
-              <span class="old-price">₹${p.original}</span>
+              <span class="curr-price">₹${p.price.toLocaleString()}</span>
+              <span class="old-price">₹${p.original.toLocaleString()}</span>
             </div>
             <button class="btn-add" onclick="addToCart()">Add to Cart</button>
           </div>
@@ -389,6 +390,15 @@
       const query = document.getElementById('searchInput').value.toLowerCase();
       const filtered = products.filter(p => p.name.toLowerCase().includes(query));
       renderProducts(filtered);
+    }
+
+    function filterCategory(cat) {
+      if (cat === 'all') {
+        renderProducts(products);
+      } else {
+        const filtered = products.filter(p => p.category === cat);
+        renderProducts(filtered);
+      }
     }
 
     renderProducts(products);
