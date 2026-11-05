@@ -4,239 +4,504 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ApnaStore - Shop Smart, Save More</title>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background-color: #f8f9fa;
-      color: #333;
+      background-color: #f1f2f6;
+      color: #212121;
     }
 
+    /* Flipkart Yellow Header */
     header {
-      background-color: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      background-color: #2874f0;
       position: sticky;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
+    .header-container {
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 15px 20px;
-    }
-
-    .logo-container {
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
+      padding: 10px 20px;
+      gap: 20px;
     }
 
-    .logo-container img {
-      height: 45px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .logo-container h1 {
-      font-size: 1.5rem;
-      color: #2c3e50;
-    }
-
-    .cart-btn {
-      background-color: #007bff;
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
       color: white;
+    }
+
+    .brand-logo img {
+      height: 38px;
+      object-fit: contain;
+      background: white;
+      border-radius: 4px;
+      padding: 2px;
+    }
+
+    .brand-logo span {
+      font-size: 20px;
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    /* Search Bar */
+    .search-box {
+      flex-grow: 1;
+      max-width: 600px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 40px 10px 15px;
       border: none;
-      padding: 10px 18px;
-      border-radius: 20px;
+      border-radius: 4px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .search-box i {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #2874f0;
+      font-size: 16px;
+    }
+
+    /* Cart Button */
+    .cart-btn {
+      background: white;
+      color: #2874f0;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 4px;
+      font-weight: 600;
       cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
     }
 
     .cart-btn:hover {
-      background-color: #0056b3;
+      background: #f8f9fa;
     }
 
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('./Apna Store_ Shop Smart, Save More.png') center/cover no-repeat;
+    .cart-badge {
+      background: #ff9f00;
       color: white;
-      text-align: center;
-      padding: 80px 20px;
-      margin-bottom: 40px;
-      border-radius: 0 0 15px 15px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-size: 12px;
     }
 
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+    /* Category Bar */
+    .category-bar {
+      background: white;
+      padding: 12px 20px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      margin-bottom: 12px;
     }
 
-    .hero p {
-      font-size: 1.2rem;
-    }
-
-    .container {
-      max-width: 1200px;
+    .category-container {
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 0 20px 40px;
+      display: flex;
+      justify-content: space-around;
+      overflow-x: auto;
+    }
+
+    .cat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      min-width: 70px;
+    }
+
+    .cat-item i {
+      font-size: 24px;
+      color: #2874f0;
+    }
+
+    .cat-item span {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Main Container */
+    .main-content {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 15px 40px;
+    }
+
+    /* Offer Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #2874f0, #0056b3);
+      color: white;
+      border-radius: 8px;
+      padding: 40px 30px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-banner h2 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .hero-banner p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    /* Product Section */
+    .section-card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
     }
 
     .section-title {
-      margin-bottom: 25px;
-      font-size: 1.8rem;
-      color: #2c3e50;
-      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
     }
 
+    .timer {
+      background: #ffe1e6;
+      color: #ff6161;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* Products Grid */
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 20px;
     }
 
     .product-card {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border: 1px solid #f0f0f0;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
       transition: transform 0.2s, box-shadow 0.2s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      background: white;
+      position: relative;
     }
 
     .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #388e3c;
+      color: white;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 3px 6px;
+      border-radius: 3px;
     }
 
     .product-img {
       width: 100%;
-      height: 200px;
-      object-fit: cover;
-      background-color: #eee;
+      height: 170px;
+      object-fit: contain;
+      margin-bottom: 12px;
     }
 
-    .product-info {
-      padding: 15px;
-      flex-grow: 1;
+    .product-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #212121;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .price-box {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
     }
 
-    .product-title {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-    }
-
-    .product-price {
-      font-size: 1.2rem;
+    .current-price {
+      font-size: 16px;
       font-weight: bold;
-      color: #28a745;
-      margin-bottom: 15px;
     }
 
-    .add-to-cart {
-      background-color: #28a745;
+    .original-price {
+      font-size: 13px;
+      color: #878787;
+      text-decoration: line-through;
+    }
+
+    .btn-add {
+      width: 100%;
+      background: #ff9f00;
       color: white;
       border: none;
-      padding: 10px;
-      width: 100%;
-      border-radius: 5px;
-      cursor: pointer;
+      padding: 9px;
+      border-radius: 4px;
       font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
     }
 
-    .add-to-cart:hover {
-      background-color: #218838;
+    .btn-add:hover {
+      background: #e68f00;
     }
 
-    footer {
-      background-color: #2c3e50;
+    /* Cart Sidebar Drawer */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 350px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+      z-index: 2000;
+      transition: right 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-drawer.open {
+      right: 0;
+    }
+
+    .cart-header {
+      background: #2874f0;
       color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-items {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+    }
+
+    .cart-footer {
+      padding: 15px;
+      border-top: 1px solid #eee;
+    }
+
+    .btn-checkout {
+      width: 100%;
+      background: #fb641b;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      background: #172337;
+      color: #878787;
       text-align: center;
-      padding: 20px;
-      margin-top: auto;
+      padding: 25px 15px;
+      font-size: 13px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Flipkart Header -->
   <header>
-    <div class="navbar">
-      <div class="logo-container">
-        <!-- Relative path to logo.png in the same directory -->
-        <img src="./logo.png" alt="ApnaStore Logo" onerror="this.style.display='none'">
-        <h1>ApnaStore</h1>
+    <div class="header-container">
+      <a href="#" class="brand-logo">
+        <img src="./logo.png" alt="Logo" onerror="this.style.display='none'">
+        <span>ApnaStore</span>
+      </a>
+
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search for products, brands and more..." onkeyup="filterProducts()">
+        <i class="fa-solid fa-magnifying-glass"></i>
       </div>
-      <button class="cart-btn">🛒 Cart (<span id="cart-count">0</span>)</button>
+
+      <button class="cart-btn" onclick="toggleCart()">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Cart
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
     </div>
   </header>
 
-  <!-- Hero Banner -->
-  <section class="hero">
-    <h2>Shop Smart, Save More</h2>
-    <p>Get the best deals on your favorite products!</p>
-  </section>
+  <!-- Categories Bar -->
+  <nav class="category-bar">
+    <div class="category-container">
+      <div class="cat-item"><i class="fa-solid fa-mobile-screen"></i><span>Mobiles</span></div>
+      <div class="cat-item"><i class="fa-solid fa-laptop"></i><span>Electronics</span></div>
+      <div class="cat-item"><i class="fa-solid fa-shirt"></i><span>Fashion</span></div>
+      <div class="cat-item"><i class="fa-solid fa-house"></i><span>Home</span></div>
+      <div class="cat-item"><i class="fa-solid fa-basket-shopping"></i><span>Grocery</span></div>
+      <div class="cat-item"><i class="fa-solid fa-bolt"></i><span>Top Offers</span></div>
+    </div>
+  </nav>
 
-  <!-- Product Section -->
-  <main class="container">
-    <h2 class="section-title">Our Featured Products</h2>
-    <div class="products-grid" id="products-grid">
-      <!-- Products will be generated by JavaScript -->
+  <!-- Main Section -->
+  <main class="main-content">
+    <!-- Hero Offer Banner -->
+    <div class="hero-banner">
+      <div>
+        <h2>Big Savings Days!</h2>
+        <p>Shop Smart, Save More with up to 60% OFF on Top Tech Brands.</p>
+      </div>
+      <i class="fa-solid fa-bag-shopping" style="font-size: 70px; opacity: 0.8;"></i>
+    </div>
+
+    <!-- Products Card Container -->
+    <div class="section-card">
+      <div class="section-header">
+        <h2 class="section-title">Deals of the Day</h2>
+        <span class="timer"><i class="fa-regular fa-clock"></i> 12h 45m remaining</span>
+      </div>
+
+      <div class="products-grid" id="productsGrid">
+        <!-- Products generated by JavaScript -->
+      </div>
     </div>
   </main>
 
+  <!-- Cart Drawer -->
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>My Cart</h3>
+      <i class="fa-solid fa-xmark" style="cursor: pointer;" onclick="toggleCart()"></i>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p style="text-align: center; color: #878787; margin-top: 20px;">Your cart is empty!</p>
+    </div>
+    <div class="cart-footer">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold;">
+        <span>Total:</span>
+        <span id="cartTotal">₹0</span>
+      </div>
+      <button class="btn-checkout" onclick="alert('Order Placed Successfully!')">PLACE ORDER</button>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer>
-    <p>&copy; 2026 ApnaStore. All rights reserved.</p>
+    <p>&copy; 2026 ApnaStore. Flipkart Clone Demo for GitHub Pages.</p>
   </footer>
 
+  <!-- Script Logic -->
   <script>
-    // Sample Products Data
     const products = [
-      { id: 1, name: "Wireless Headphones", price: "₹1,499", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" },
-      { id: 2, name: "Smart Watch", price: "₹2,999", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" },
-      { id: 3, name: "Running Shoes", price: "₹1,999", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" },
-      { id: 4, name: "Casual Backpack", price: "₹999", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500" }
+      { id: 1, name: "Wireless Headphones", price: 1499, original: 2999, discount: "50% OFF", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" },
+      { id: 2, name: "Smart Fitness Watch", price: 2499, original: 4999, discount: "50% OFF", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" },
+      { id: 3, name: "Nike Running Shoes", price: 3199, original: 5999, discount: "46% OFF", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" },
+      { id: 4, name: "Casual Laptop Backpack", price: 899, original: 1999, discount: "55% OFF", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400" },
+      { id: 5, name: "Smart RGB Desk Lamp", price: 699, original: 1499, discount: "53% OFF", image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400" },
+      { id: 6, name: "Bluetooth Speaker 20W", price: 1799, original: 3499, discount: "48% OFF", image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400" }
     ];
 
-    let cartCount = 0;
+    let cart = [];
 
-    // Render Products
-    const productsContainer = document.getElementById('products-grid');
-    products.forEach(product => {
-      const card = document.createElement('div');
-      card.classList.add('product-card');
-      card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" class="product-img">
-        <div class="product-info">
-          <div>
-            <h3 class="product-title">${product.name}</h3>
-            <p class="product-price">${product.price}</p>
+    function renderProducts(items) {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
+      
+      if(items.length === 0) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 20px;">No products found!</p>`;
+        return;
+      }
+
+      items.forEach(p => {
+        grid.innerHTML += `
+          <div class="product-card">
+            <span class="discount-badge">${p.discount}</span>
+            <img src="${p.image}" alt="${p.name}" class="product-img">
+            <div class="product-name" title="${p.name}">${p.name}</div>
+            <div class="price-box">
+              <span class="current-price">₹${p.price.toLocaleString()}</span>
+              <span class="original-price">₹${p.original.toLocaleString()}</span>
+            </div>
+            <button class="btn-add" onclick="addToCart(${p.id})">Add to Cart</button>
           </div>
-          <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
-        </div>
-      `;
-      productsContainer.appendChild(card);
-    });
-
-    function addToCart() {
-      cartCount++;
-      document.getElementById('cart-count').innerText = cartCount;
-      alert('Product added to cart!');
+        `;
+      });
     }
-  </script>
-</body>
-</html>
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      cart.push(product);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      document.getElementById('cartCount').innerText = cart.length;
+      const cartItemsContainer = document.getElementById('cartItems');
+      
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `<p style="text-align: center; color: #878787; margin-top: 20px;">Your cart is empty!</p>`;
+        document.getElementById('cartTotal').innerText = `₹0`;
+        return;
+      }
+
+      let total = 0;
+      cartItemsContainer.innerHTML = cart.map((item, index) => {
+        total += item.price;
+        return `
+          <div class="cart-item">
+            <div>
+              <div style="font-weight: 600; font-size: 1
