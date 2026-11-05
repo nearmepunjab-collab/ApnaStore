@@ -1,27 +1,242 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pa">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ApnaStore - Online Shopping Hub</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 font-sans">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ApnaStore - Shop Smart, Save More</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-    <!-- Header / Navbar -->
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Logo Added Here -->
-            <a href="#" class="flex items-center">
-                <img src="Apna Store_ Shop Smart, Save More.png" alt="ApnaStore Logo" class="h-12 w-auto object-contain">
-            </a>
-            
-            <nav class="hidden md:flex space-x-6 text-gray-600 font-medium">
-                <a href="#" class="hover:text-indigo-600">Home</a>
-                <a href="#products" class="hover:text-indigo-600">Products</a>
-                <a href="#about" class="hover:text-indigo-600">About Us</a>
-                <a href="#contact" class="hover:text-indigo-600">Contact</a>
-            </nav>
-            <div>
-                <a href="#products" class="
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    header {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-container img {
+      height: 45px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .logo-container h1 {
+      font-size: 1.5rem;
+      color: #2c3e50;
+    }
+
+    .cart-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .cart-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('./Apna Store_ Shop Smart, Save More.png') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+      margin-bottom: 40px;
+      border-radius: 0 0 15px 15px;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+
+    .section-title {
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background-color: #eee;
+    }
+
+    .product-info {
+      padding: 15px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-title {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #28a745;
+      margin-bottom: 15px;
+    }
+
+    .add-to-cart {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .add-to-cart:hover {
+      background-color: #218838;
+    }
+
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="navbar">
+      <div class="logo-container">
+        <!-- Relative path to logo.png in the same directory -->
+        <img src="./logo.png" alt="ApnaStore Logo" onerror="this.style.display='none'">
+        <h1>ApnaStore</h1>
+      </div>
+      <button class="cart-btn">🛒 Cart (<span id="cart-count">0</span>)</button>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero">
+    <h2>Shop Smart, Save More</h2>
+    <p>Get the best deals on your favorite products!</p>
+  </section>
+
+  <!-- Product Section -->
+  <main class="container">
+    <h2 class="section-title">Our Featured Products</h2>
+    <div class="products-grid" id="products-grid">
+      <!-- Products will be generated by JavaScript -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 ApnaStore. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Sample Products Data
+    const products = [
+      { id: 1, name: "Wireless Headphones", price: "₹1,499", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" },
+      { id: 2, name: "Smart Watch", price: "₹2,999", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" },
+      { id: 3, name: "Running Shoes", price: "₹1,999", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" },
+      { id: 4, name: "Casual Backpack", price: "₹999", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500" }
+    ];
+
+    let cartCount = 0;
+
+    // Render Products
+    const productsContainer = document.getElementById('products-grid');
+    products.forEach(product => {
+      const card = document.createElement('div');
+      card.classList.add('product-card');
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" class="product-img">
+        <div class="product-info">
+          <div>
+            <h3 class="product-title">${product.name}</h3>
+            <p class="product-price">${product.price}</p>
+          </div>
+          <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+        </div>
+      `;
+      productsContainer.appendChild(card);
+    });
+
+    function addToCart() {
+      cartCount++;
+      document.getElementById('cart-count').innerText = cartCount;
+      alert('Product added to cart!');
+    }
+  </script>
+</body>
+</html>
